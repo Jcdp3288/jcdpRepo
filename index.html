@@ -1,96 +1,262 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>REST API 001</title>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>CPC Chorale</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Playball&family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <style>
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Quicksand', sans-serif;
+    text-decoration: none;
+    list-style: none;
+    scroll-behavior: smooth;
+}
+:root{
+    --bg-color: #1c3b4d;
+    --text-color: #ffffff;
+    --second-color:  #b4dcf5;
+    --main-color: #232a30;
+    --big-font: 6rem;
+    --h2-font: 3rem;
+    --p-font: 1.1rem;
+}
+
+body{
+    background: var(--text-color);
+    color: var(--bg-color);
+}
+
+      .navbar {
+    margin-top: 20px;
+    position: fixed;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.2); /* Background with transparency (adjust the 0.7 for opacity) */
+      color: #fff;
+      padding: 10px 0; 
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000; 
+    display: flex;
+
+}
+.navbar-brand{
+    margin-left: 140px;
+}
+.nav-link{
+    background-size: cover; 
+    margin-right: 20px;
+    margin-left: 20px;
+    color: black;
+    text-transform: uppercase;
+    font-size: medium;
+    font-family: 'Quicksand', sans-serif;
+    text-decoration: none;
+    transition: ease .40s;
+    font-weight: 500;
+}
+.nav-link:hover{
+    background: #b4dcf5;
+    transform: scale(1.1);
+    color: #232a30;
+    border-radius: 50px;
+    box-shadow: 5px 5px 15px rgba(49, 80, 221, 0.2);
+}
+
+.nav-link.active {
+    background-color: #f7f9fa; 
+    color: var(--second-color); 
+    border-radius: 50px; 
+    margin-right: 20px;
+    text-align: center;
+    margin-left: 40px;
+
+}
+.nav-link[aria-current="page"] {
+  width: 100%;
+  text-align: center;
+  margin-left: 20px;
+}
+.nav-link.active:hover {
+    background-color: #115171;
+    color: #fff;
+    box-shadow: 0 0 15px rgba(17, 81, 113, 0.7);
+    transform: scale(1.1);
+}
+
+.dropdown-menu{
+    border-radius: 30px;
+}
+
+.dropdown-menu a{
+    font-family: 'Quicksand', sans-serif;
+}
+.dropdown-menu a:hover{
+    transform: scale(1.1);
+    color: #115171;
+    border-radius: 50px;
+    background: var(--second-color);
+}
+.card-margin {
+      margin: 60px;
+}
+
+    </style>
 </head>
-<body class="bg-gray-900 flex h-screen">
+    
+  <body>
 
-<div class="bg-gray-900 pt-10 sm:pt-16 lg:overflow-hidden lg:pb-14 lg:pt-8 m-auto" id="app">
-    <div class="mx-auto max-w-7xl lg:px-8">
-        <div class="lg:grid lg:grid-cols-2 lg:gap-8">
-            <div class="mx-auto max-w-md px-6 sm:max-w-2xl sm:text-center lg:flex lg:items-center lg:px-0 lg:text-left">
-                <div class="lg:py-24">
-                    <div class="hidden sm:mb-5 sm:flex sm:justify-center lg:justify-start">
-                        <a href="#"
-                           class="flex items-center rounded-full bg-black p-1 pr-2 text-white hover:text-gray-200 sm:text-base lg:text-sm xl:text-base">
-                            <span class="rounded-full bg-indigo-500 px-3 py-0.5 text-sm font-semibold leading-5 text-white">Integrative Programming</span>
-                            <span class="ml-4 text-sm">REST001 Demo</span>
-                            <svg class="ml-2 h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor"
-                                 aria-hidden="true">
-                                <path fill-rule="evenodd"
-                                      d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
-                                      clip-rule="evenodd"/>
-                            </svg>
-                        </a>
-                    </div>
-                    <h1 class="text-4xl font-bold tracking-tight text-white sm:text-6xl lg:mt-6 xl:text-6xl">
-                        <span class="block">Retrieving data</span>
-                        <span class="block text-indigo-400">from a simple REST API</span>
-                    </h1>
+    <!--navbar-->
+    <nav class="navbar navbar-expand-lg">
+      <div class="container">
+        <a class="navbar-brand" href="#">
+        <img src="img/CPC-PhotoRoom (3).png" alt="Logo" width="200" height="90">
+        </a>
 
-                    <p class="mt-3 text-base text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-                        {{ quote }}
-                    </p>
-                    <div class="mt-10 sm:mt-12">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-                        <div class="mt-3 sm:ml-3 sm:mt-0">
-                            <button type="submit" @click="getQuote()"
-                                    class="block w-full rounded-md bg-indigo-500 px-4 py-3 font-medium text-white shadow hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-300 focus:ring-offset-2 focus:ring-offset-gray-900">
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav m-auto my-2 my-lg-0">
 
-                                Fetch a quote
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="-mb-16 mt-12 sm:-mb-48 lg:relative lg:m-0">
-                <div class="mx-auto max-w-md px-6 sm:max-w-2xl lg:max-w-none lg:px-0">
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="index.html">Home</a>
+            </li>
 
-                    <img class="w-full lg:absolute lg:inset-y-0 lg:left-0 lg:h-full lg:w-auto lg:max-w-none"
-                         src="img/cat.jpeg" alt="">
-                </div>
-            </div>
+            <li class="nav-item">
+              <a class="nav-link active" href="news&updates.html">News & Updates</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link " href="members&mentors.html">Members & Mentors</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="logout.html">Logout</a>
+            </li>
+
+          </ul>
         </div>
+      </div>
+    </nav>
+
+    <script src="script.js"></script>
+   
+    <!--News and Updates-->
+    <section class="news&updates" id="news&updates"></section>
+    <div class="card rounded" style="max-width: 100%; display: flex; margin-top: 40px;">
+      <div class="row g-0">
+        <div class="col-md-4">
+  <img src="img/Maragtas.jpg" class="img-fluid rounded rounded-start" alt="...">
+</div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h3 class="card-title">Gab-i Sang Maragtas </h3>
+          <br> <h5>Date: September 5, 2023</h5> 
+        <p class="card-text"> 𝐆𝐞𝐭 𝐫𝐞𝐚𝐝𝐲 𝐭𝐨 𝘄𝗶𝘁𝗻𝗲𝘀𝘀 𝐭𝐡𝐞 𝐫𝐢𝐜𝐡 𝐜𝐮𝐥𝐭𝐮𝐫𝐞 𝐚𝐧𝐝 𝐡𝐞𝐫𝐢𝐭𝐚𝐠𝐞 𝐨𝐟 𝘁𝗵𝗲 𝗣𝗿𝗼𝘃𝗶𝗻𝗰𝗲 𝗼𝗳 𝐂𝐚𝐩𝐢𝐳 𝐚𝐭 𝐭𝐡𝐞 𝐆𝐚𝐛-𝐢 𝐬𝐚𝐧𝐠 𝐌𝐚𝐫𝐚𝐠𝐭𝐚𝐬 𝐂𝐮𝐥𝐭𝐮𝐫𝐚𝐥 𝐒𝐡𝐨𝐰 𝗵𝗲𝗹𝗱 𝗶𝗻 𝗰𝗲𝗹𝗲𝗯𝗿𝗮𝘁𝗶𝗼𝗻 𝗼𝗳 𝘁𝗵𝗲 𝐁𝐮𝐲𝐥𝐨𝐠𝐚𝐧𝐚𝐲 𝐅𝐞𝐬𝐭𝐢𝐯𝐚𝐥 𝟐𝟎𝟐𝟑!
+
+          Join us on this meaningful journey through history as we present Gab-i sang Maragtas Cultural Show presenting "Dali sa Capiz" - a play portraying the beauty of the province, and the resilience and triumphs of the Capisnon people, as also reflected in the Buyloganay culture of the Ivisanons. 
+          
+          The name of the festival was drawn from the Ivisanons' spirit of Buyloganay and way of life characterized by the gesture of unity and cooperation among the town's residents. Buyloganay is also greatly manifested when the people of Ivisan choose to rise and celebrate life with optimism and resilience amid challenging situations. 
+          
+          This event is made possible through the collaborative efforts of the Provincial Government of Capiz, led by Governor Fredenil H. Castro, the Provincial Tourism and Cultural Affairs Office, the Municipal Government of Ivisan, and its Municipal Tourism Office.
+          
+          Performing for Gab-i sang Maragtas are the following:
+          
+          ▪️Niña Jaro, Tawag ng Tanghalan Season 6 Quarterfinalist
+          ▪️Peter John Acebuque, Grand Winner, Bugal sang Capiz: Search for Capiz Singing Ambassador 2020
+          ▪️Clarisse Anne Alvarez
+          ▪️Arnel Heremias, Capisnon local artist and multi-intrumentalist
+          ▪️Colegio de la Purisima Concepcion Chorale
+          ▪️Filamer Christian University Silak Dance Company
+          ▪️Dagway Sigmahanon, Inc., Galing Pook Awardee for Trailblazing Program
+          ▪️Panay Bukidnon Community of Tapaz, Capiz
+          ▪️Municipality of Ivisan Maragtas sang Capisnon Performers
+          ▪️Municipality of Ivisan Saot Capiz 2023 Folk Dancers
+          
+          Let's come together to celebrate the spirit of Buyloganay that resonate not only from the Ivisanons but all Capisnons! See you at the Freedom Plaza of the Municipality of Ivisan this September 7, 2023 at 7:00 PM!
+          
+          #BuyloganayFestival2023
+          #CaptureCapiz
+          #PTCAOat2023
+          #WowOneCapiz
+          #CaptureFestivities</p>
+        
+      </div>
     </div>
+  </div>
 </div>
 
-<script type="text/javascript">
-    const { createApp } = Vue
+<section class="news&updates" id="news&updates"></section>
+<div class="card rounded" style="max-width: 100%; display: flex; margin-top: 40px;">
+  <div class="row g-0">
+    <div class="col-md-4">
+<img src="img/Recruit.jpg" style="height: 75%; margin-left: 40px;" class="img-fluid rounded rounded-start" alt="...">
+</div>
+<div class="col-md-8">
+  <div class="card-body">
+    <h3 class="card-title">CHORALE AUDITIONS </h3>
+      <br> <h5>Date: September 5, 2023</h5> 
+    <p class="card-text"> 🎶 Calling all aspiring vocal talents! 🎶
+      🌟 CPC Chorale Auditions Are Now Open! 🌟
+      We are looking for new SOPRANO, ALTO, TENOR and BASS!
+      This is your golden opportunity to showcase your musical prowess and join the prestigious CPC Chorale as a scholar!
+      To be a part of this extraordinary ensemble, simply fill out the application form by scanning the QR Code or get in touch with us through these channels:
+      📞 Contact: 09216624911
+      💬 Facebook: Colegio de la Purisima Concepcion Chorale
+      Don't miss this chance to let your voice be heard and embark on an unforgettable musical journey with CPC Chorale. Audition slots are limited, so seize the moment and let your talent shine! 🎤🌟 
+      For audition, please prepare One (1) OPM and and One (1) English song.
+      #CPCChorale 
+      #AuditionsOpen 
+      #VocalTalent 
+      #BeAScholar 
+      #JoinTheChoir</p>
+    
+  </div>
+</div>
+</div>
+</div>
 
-    createApp({
-        data() {
-            let quote = "The Fetch API is a\n" +
-                "                        modern JavaScript API that provides a way to make network requests (HTTP requests) to retrieve\n" +
-                "                        resources from a network, typically interacting with web services and APIs. It is designed to be\n" +
-                "                        more flexible and powerful than the older XMLHttpRequest (XHR) API and provides a simpler, more\n" +
-                "                        promise-based approach to handling asynchronous requests."
+<div class="card rounded" style="max-width: 100%; display: flex; margin-top: 40px;">
+  <div class="row g-0">
+    <div class="col-md-4">
+<img src="img/Sing.jpg" class="img-fluid rounded rounded-start" alt="...">
+</div>
+<div class="col-md-8">
+  <div class="card-body">
+    <h3 class="card-title">Exploring The Beauty and Complexity of Love </h3>
+      <br> <h5>Date: May 13, 2023</h5> 
+    <p class="card-text"> A harmonious performance made even more memorable! We extend our heartfelt gratitude to Mayor Ronnie Dadivas, Ang Panublion Museum Director Ms. Cheryl Anne del Rosario, and the City Government of Roxas, for giving us the incredible opportunity to showcase our talents as a chorale group in the Kaadlawan Cultural Show, as we join in celebrating the birthday of Roxas City. 
 
-            let loading = false
-            return {
-                quote,
-                loading
-            }
-        },
-        methods: {
-            async getQuote() {
-                this.loading = true
-                await fetch('https://catfact.ninja/fact')
-                    .then(async response => {
-                        const data = await response.json()
-                        this.quote = data.fact
-                        this.loading = false
-                    })
-                    .catch(error => {
-                        console.log(error)
-                    });
-            }
-        }
-    }).mount('#app')
-</script>
+      Special thanks also to John Felix Apinan, an alumnus member of CapSU Main Chorale, for adding to our beauty through his makeup skills. 
+      
+      We are grateful for the support and encouragement that we have received, and we hope to continue sharing our music with Roxas City and beyond.
+      
+      Images credit to Project Hiraya, Ronnie Dadivas, and Capiz Provincial Government Communications Group. 
+      
+      #72ndAnniversary
+      #CityCharterDay
+      #ProDeoEtPatria</p>
+    
+  </div>
+</div>
+</div>
+</div>
 
-</body>
+  </body>
+
 </html>
